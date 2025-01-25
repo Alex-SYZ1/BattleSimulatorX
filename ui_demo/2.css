@@ -1,0 +1,94 @@
+/* 通用样式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .hex-board {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 行之间的间隙 */
+  }
+  
+  /* 六边形单元格 */
+  .hex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .hex-row.offset {
+    margin-left: 45px; /* 偏移半个六边形的宽度，使得行交错排列 */
+  }
+  
+  /* 核心六边形样式 */
+  .hex-cell {
+    width: 80px;
+    height: 46.19px; /* 六边形的高度为宽度的 √3/2 */
+    background-color: #fff;
+    clip-path: polygon(
+      50% 0%,   /* 上顶点 */
+      100% 25%, /* 右上 */
+      100% 75%, /* 右下 */
+      50% 100%, /* 下顶点 */
+      0% 75%,   /* 左下 */
+      0% 25%    /* 左上 */
+    ); /* 六边形顶点 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ccc;
+    text-align: center;
+    position: relative;
+  }
+  
+  /* 单元格类型样式 */
+  .hex-cell.red {
+    background-color: #ff6666;
+    color: #fff;
+  }
+  
+  .hex-cell.blue {
+    background-color: #6699ff;
+    color: #fff;
+  }
+  
+  .hex-cell.tree {
+    background-color: #99cc99;
+    background-image: url('https://img.icons8.com/color/48/000000/tree.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .hex-cell.mountain {
+    background-color: #d9a066;
+    background-image: url('https://img.icons8.com/ios-filled/50/000000/mountain.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .hex-cell.water {
+    background-color: #66ccff;
+    background-image: url('https://img.icons8.com/ios-filled/50/000000/water.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .hex-cell.city {
+    background-color: #ffcc66;
+    background-image: url('https://img.icons8.com/ios/50/000000/city.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  

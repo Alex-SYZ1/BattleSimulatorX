@@ -32,12 +32,9 @@ def read_init_file():
     return config_data
 
 get_board_default_dict   = lambda config_data:config_data["board"]
-get_person_info_list = lambda config_data:[config_data[i] for i in config_data if i.startswith("person")] 
-get_alert_locator    = lambda alert_text:constants.VisitorPage3_alert_xpath.format(alert_text=alert_text)
-get_time_default_dict   = lambda config_data:config_data["wait_time"]
-get_recipient_default_dict = lambda config_data:[config_data[i] for i in config_data if i.startswith("recipient")]
+get_initial_vision_list = lambda config_data:{i:config_data[i].split() for i in config_data if i.endswith("initial_vision")}
 
-
+# below are old
 def get_email_default_dict(config_data):
     recipient_info = get_recipient_default_dict(config_data)
     initial_email_info_dict = {i:j  for i,j in (config_data["email"]).items()}

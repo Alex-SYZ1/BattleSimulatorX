@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexagon Honeycomb</title>
+    <style>
+        /* 居中页面内容 */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 垂直靠上 */
+            height: 100vh;
+            background-color: #f0f0f0; /* 设置页面背景色 */
+        }
+
+        /* SVG 容器大小 */
+        #hex-map {
+            width: 80%; /* 横向占据屏幕的80% */
+            height: 66.67%; /* 纵向占据屏幕的2/3 */
+            background-color: #ffffff; /* 背景为白色 */
+        }
+
+        /* 地形样式 */
+        .road {
+            fill: #d4d4d4; /* 灰色 */
+        }
+
+        .city {
+            fill: #ffcc00; /* 黄色 */
+        }
+
+        .forest {
+            fill: #00b050; /* 绿色 */
+        }
+
+        .mountain {
+            fill: #7f7f7f; /* 深灰色 */
+        }
+
+        .wasteland {
+            fill: #a87e5a; /* 棕色 */
+        }
+
+        /* 图片样式 */
+        image {
+            pointer-events: none; /* 禁止图片响应鼠标事件 */
+        }
+
+        /* 红方初始占领 */
+        .red {
+            stroke: red;
+            stroke-width: 3px;
+        }
+
+        /* 蓝方初始占领 */
+        .blue {
+            stroke: blue;
+            stroke-width: 3px;
+        }
+
+        /* 六边形边框 */
+        polygon {
+            stroke: black; /* 黑色边框 */
+            stroke-width: 2px; /* 边框宽度 */
+        }
+
+        /* 坐标文字 */
+        text {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            fill: #000000; /* 黑色文字 */
+        }
+    </style>
+</head>
+<body>
+    <svg id="hex-map"></svg>
+
+    <script>
+        // 地图参数
+        const radius = 30; // 六边形半径（调整画布尺寸）
+        const hexHeight = Math.sqrt(3) * radius; // 六边形的高度
+        const rows = 7; // 行数
+        const cols = 14; // 列数
+        const colNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]; // 列名
+        const cellData = { // 地形数据
+            "A": [0, 1, 0, 0, 0, 0, 2],
+            "B": [4, 0, 0, 2, 2, 0, 0],
+            "C": [2, 0, 0, 0, 0, 1, 0],
+            "D": [4, 0, 0, 2, 0, 0, 0],
+            "E": [4, 0, 0, 3, 0, 0, 4],
+            "F": [4, 4, 0, 0, 3, 0, 0],
+            "G": [2, 0, 1, 0, 3, 0, 2],
+            "H": [4, 4, 0, 0, 2, 0, 0],
+            "I": [4, 3, 0, 3, 0, 0, 4],
+            "J": [4, 4, 0, 3, 1, 0, 4],
+            "K": [4, 0, 4, 2, 0, 0, 4],
+            "L": [4, 0, 0, 4, 4, 0, 0],
+            "M": [0, 0, 0, 0, 0, 0, 0],
+            "N": [0, 0, 1, 0, 0, 1, 0],
+        };
+
+        const redOccupied = ["A1", "A2", "A3", "B2", "B3", "B6", "B7", "C5", "C6", "C7", "D6", "D7", "F3", "F4", "G2", "G3", "G4", "H3", "H4", "I5", "J5", "K5"];
+        const blueOccupied = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "N1", "N2", "N3", "N4", "N5", "N6", "N7"];
+
+        const terrainClasses = ["road", "city", "forest", "mountain", "wasteland"]; // 地形对应样式
+
+        const terrainImages = {
+            "city": "city.png",    // 城市的图片文件路径
+            "forest": "forest.png", // 森林的图片文件路径
+            "mountain": "mountain.png" // 山脉的图片文件路径
+        };
+
+        // 获取 SVG 容器
+        const svg = document.getElementById("hex-map");
+        svg.setAttribute("viewBox", `0 0 ${cols * 1.5 * radius + 0.5 * radius} ${hexHeight * rows + hexHeight}`);
+
+        // 绘制六边形
+        function drawHexagon(cx, cy, terrain, colorClass, label) {
+            const points = [];
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 180) * (60 * i);
+                const x = cx + radius * Math.cos(angle);
+                const y = cy + radius * Math.sin(angle);
+                points.push(`${x},${y}`);
+            }
+
+            // 创建六边形
+            const hex = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            hex.setAttribute("points", points.join(" "));
+            hex.setAttribute("class", `${terrain} ${colorClass}`);
+            svg.appendChild(hex);
+
+            // 添加图片（如果有）
+            if (terrainImages[terrain]) {
+                const img = document.createElementNS("http://www.w3.org/2000/svg", "image");
+                img.setAttribute("href", terrainImages[terrain]);
+                img.setAttribute("x", cx - radius * 0.5);
+                img.setAttribute("y", cy - radius * 0.5);
+                img.setAttribute("width", radius);
+                img.setAttribute("height", radius);
+                svg.appendChild(img);
+            }
+
+            // 添加坐标文字
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            text.setAttribute("x", cx);
+            text.setAttribute("y", cy);
+            text.textContent = label;
+            svg.appendChild(text);
+        }
+
+        // 生成地图
+        for (let col = 0; col < cols; col++) {
+            const isOddCol = col % 2 === 0;
+            const currentColName = colNames[col];
+            const currentColData = cellData[currentColName] || [];
+            for (let row = 0; row < rows; row++) {
+                const cy = (rows - row - 1) * hexHeight + radius + (isOddCol ? 0 : hexHeight / 2); // 从下往上排列
+                const cx = col * 1.5 * radius + radius;
+                const cellCoordinate = `${currentColName}${row + 1}`;
+                const terrainType = currentColData[row] || 0; // 默认为道路
+                const terrainClass = terrainClasses[terrainType];
+
+                // 判断是否被红方或蓝方占据
+                const colorClass = redOccupied.includes(cellCoordinate) ? "red" : 
+                                   blueOccupied.includes(cellCoordinate) ? "blue" : "";
+
+                drawHexagon(cx, cy, terrainClass, colorClass, cellCoordinate);
+            }
+        }
+
+// 坦克图片路径
+const tankImageSrc = "tank.png"; 
+const attackRange = ["I4", "I5", "J6", "K5", "K4", "J4"]; // 攻击范围
+
+// 查找 j5 和周围单元格
+const targetCell = document.querySelector("polygon:nth-of-type(68)"); // J5 的六边形是第68个
+const attackCells = attackRange.map(coord => {
+    const colIndex = coord[0].toUpperCase().charCodeAt(0) - "A".charCodeAt(0) + 1;
+    const rowIndex = parseInt(coord[1]);
+    const polygonIndex = (colIndex - 1) * rows + rowIndex; // 修正计算索引
+    return document.querySelector(`polygon:nth-of-type(${polygonIndex})`);
+});
+
+// 创建提示文字的背景矩形
+const instructionBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+instructionBg.setAttribute("fill", "rgba(255, 255, 255, 0.9)"); // 黑色，透明度50%
+instructionBg.setAttribute("rx", "5"); // 圆角矩形，圆角半径5
+instructionBg.setAttribute("visibility", "hidden"); // 隐藏
+svg.appendChild(instructionBg);
+
+// 创建提示文字
+const instructionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+instructionText.textContent = "请选择您驻扎装甲兵的领地";
+instructionText.setAttribute("font-family", "Arial, sans-serif");
+instructionText.setAttribute("font-size", "20");
+instructionText.setAttribute("fill", "white");
+instructionText.setAttribute("text-anchor", "middle");
+instructionText.setAttribute("visibility", "hidden"); // 初始为隐藏
+svg.appendChild(instructionText);
+
+// 坦克图片元素
+const tankImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
+tankImage.setAttribute("href", tankImageSrc);
+tankImage.setAttribute("width", radius * 1.5);
+tankImage.setAttribute("height", radius * 1.5);
+tankImage.setAttribute("visibility", "hidden"); // 初始隐藏
+svg.appendChild(tankImage);
+
+// 创建遮罩层（用于突出周围单元格）
+const overlayCells = attackCells.map(cell => {
+    if (cell) {
+        const overlay = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        overlay.setAttribute("points", cell.getAttribute("points"));
+        overlay.setAttribute("fill", "rgba(232, 50, 35, 0.5)"); // 半透明黄色高亮
+        overlay.setAttribute("stroke", "red");
+        overlay.setAttribute("stroke-width", "3");
+        overlay.setAttribute("visibility", "hidden"); // 初始隐藏
+        svg.appendChild(overlay);
+        return overlay;
+    }
+    return null;
+});
+
+// 显示提示文字和背景
+const showInstruction = () => {
+    const bbox = instructionText.getBBox(); // 获取文字的边界框
+    instructionBg.setAttribute("x", bbox.x - 10); // 矩形左侧比文字多出10px
+    instructionBg.setAttribute("y", bbox.y - 5); // 矩形顶部比文字多出5px
+    instructionBg.setAttribute("width", bbox.width + 20); // 矩形宽度比文字多出20px
+    instructionBg.setAttribute("height", bbox.height + 10); // 矩形高度比文字多出10px
+    instructionBg.setAttribute("visibility", "visible"); // 显示背景矩形
+    instructionText.setAttribute("visibility", "visible"); // 显示提示文字
+    instructionText.setAttribute("x", svg.getAttribute("viewBox").split(" ")[2] / 2); // 居中
+    instructionText.setAttribute("y", 30); // 距离顶部30px
+};
+
+// 隐藏提示文字和背景
+const hideInstruction = () => {
+    instructionBg.setAttribute("visibility", "hidden"); // 隐藏背景矩形
+    instructionText.setAttribute("visibility", "hidden"); // 隐藏提示文字
+};
+
+// 鼠标移入事件
+targetCell.addEventListener("mouseenter", () => {
+    // 显示坦克图片
+    const tankX = parseFloat(targetCell.getAttribute("points").split(",")[0]);
+    const tankY = parseFloat(targetCell.getAttribute("points").split(",")[1]);
+    tankImage.setAttribute("x", tankX -radius*(55/radius));//25 * 0.75);
+    tankImage.setAttribute("y", tankY - radius*(25/radius));//5 * 0.75);
+    tankImage.setAttribute("visibility", "visible");
+
+    // 显示并突出周围单元格
+    overlayCells.forEach(overlay => {
+        if (overlay) {
+            overlay.setAttribute("visibility", "visible"); // 显示遮罩
+        }
+    });
+
+    // 显示提示文字和背景
+    showInstruction();
+});
+
+// 鼠标移出事件
+targetCell.addEventListener("mouseleave", () => {
+    // 隐藏坦克图片
+    tankImage.setAttribute("visibility", "hidden");
+
+    // 隐藏周围单元格的遮罩
+    overlayCells.forEach(overlay => {
+        if (overlay) {
+            overlay.setAttribute("visibility", "hidden"); // 隐藏遮罩
+        }
+    });
+
+    // 隐藏提示文字和背景
+    hideInstruction();
+});
+
+
+
+    </script>
+</body>
+</html>

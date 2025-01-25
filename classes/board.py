@@ -1,1 +1,1 @@
-# Board类的实现
+# Board.py

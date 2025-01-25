@@ -1,0 +1,133 @@
+<head>
+    <style>
+    /* 缩小到原来一半尺寸 */
+    .player-area, .enemy-area {
+        font-family: Arial, sans-serif; 
+        padding: 5px; /* 原来的10px */
+        border-radius: 4px; /* 原来的8px */
+        width: 110px; /* 原来的220px */
+    }
+    
+    .player-area {
+        background-color: #003366;
+    }
+    
+    .enemy-area {
+        background-color: #660000;
+    }
+    
+    h3 {
+        text-align: center; 
+        color: #ffffff; 
+        margin-bottom: 5px; /* 原来的10px */
+        font-size: 0.5em; /* 缩小字体 */
+    }
+    
+    .player {
+        display: flex; 
+        align-items: center; 
+        padding: 4px; /* 原来的8px */
+        border-radius: 2.5px; /* 原来的5px */
+        margin-bottom: 3px; /* 原来的6px */
+    }
+    
+    .player .player-role {
+        color: #ffffff; 
+        flex-shrink: 0; 
+        width: 35px; /* 原来的70px */
+        font-size: 0.5em; /* 缩小字体 */
+    }
+    
+    .player .player-avatar {
+        border-radius: 50%; 
+        margin-right: 4px; /* 原来的8px */
+        width: 20px; /* 原来的40px */
+        height: 20px; /* 原来的40px */
+    }
+    
+    .player-area .player,
+    .enemy-area .player {
+        background-color: #004080; /* 我方的颜色 */
+    }
+    
+    .enemy-area .player {
+        background-color: #800000; /* 敌方的颜色 */
+    }
+    
+    .player span {
+        color: #ffffff;
+        font-size: 0.5em; /* 缩小字体 */
+    }
+    </style>
+    </head>
+    
+    <body>
+    <div class="player-area">
+        <h3>我方玩家</h3>
+        <div class="player">
+            <strong class="player-role">总司令</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家1</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">财政部长</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家2</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">炮兵</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家3</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">空军</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家4</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">步兵</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家5</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">装甲兵司令</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家6</span>
+        </div>
+    </div>
+    
+    <div class="enemy-area">
+        <h3>敌军玩家</h3>
+        <div class="player">
+            <strong class="player-role">总司令</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家A</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">财政部长</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家B</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">炮兵</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家C</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">空军</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家D</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">步兵</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家E</span>
+        </div>
+        <div class="player">
+            <strong class="player-role">装甲兵司令</strong>
+            <img class="player-avatar" src="https://via.placeholder.com/40" alt="头像">
+            <span>玩家F</span>
+        </div>
+    </div>
+    </body>
+    

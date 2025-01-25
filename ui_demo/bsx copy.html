@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>军事桌游游戏界面</title>
+  <link rel="stylesheet" href="styles old.css">
+</head>
+<body>
+  <!-- 游戏Logo -->
+  <div class="logo">军事桌游</div>
+
+  <!-- 当前回合方 -->
+  <div class="current-turn">
+    <span>当前回合：蓝方</span>
+  </div>
+
+  <!-- 游戏主界面 -->
+  <div class="main-container">
+    <!-- 我方玩家角色区 -->
+    <div class="player-area">
+      <h3>我方玩家</h3>
+      <div class="player">
+        <img src="https://via.placeholder.com/50" alt="头像">
+        <span>玩家1</span>
+      </div>
+      <div class="player">
+        <img src="https://via.placeholder.com/50" alt="头像">
+        <span>玩家2</span>
+      </div>
+    </div>
+
+    <!-- 棋盘 -->
+    <div class="board">
+      <h3>棋盘</h3>
+      <div class="grid">
+        <!-- 模拟棋盘格子 -->
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+      </div>
+    </div>
+
+    <!-- 敌方玩家角色区 -->
+    <div class="enemy-area">
+      <h3>敌方玩家</h3>
+      <div class="player">
+        <img src="https://via.placeholder.com/50" alt="头像">
+        <span>敌方1</span>
+      </div>
+      <div class="player">
+        <img src="https://via.placeholder.com/50" alt="头像">
+        <span>敌方2</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 战备情况区 -->
+  <div class="status-area">
+    <h3>战备情况</h3>
+    <div>军种总数：10</div>
+    <div>存活数量：8</div>
+    <div>财政状况：200金币</div>
+    <div>领地数：5</div>
+    <div>城市数：3</div>
+  </div>
+
+  <!-- 聊天区与系统消息区 -->
+  <div class="chat-area">
+    <h3>聊天与消息</h3>
+    <div class="messages">
+      <div class="message">系统：游戏开始！</div>
+      <div class="message">队友：准备好了！</div>
+      <div class="message">敌方：来战吧！</div>
+    </div>
+    <input type="text" placeholder="输入消息...">
+  </div>
+
+  <!-- 备忘录区 -->
+  <div class="memo-area">
+    <h3>备忘录</h3>
+    <div class="memo">
+      <h4>财政备忘录</h4>
+      <p>当前资金充足，可以主动发起一次进攻。</p>
+    </div>
+    <div class="memo">
+      <h4>攻防备忘录</h4>
+      <p>防守待加强，建议增加骑兵单位。</p>
+    </div>
+  </div>
+</body>
+</html>

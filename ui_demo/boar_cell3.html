@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexagon Honeycomb</title>
+    <style>
+        /* 居中页面内容 */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 占满整个视口高度 */
+            background-color: #f0f0f0; /* 设置页面背景色 */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        // 获取 canvas 元素
+        var canvas = document.getElementById("canvas");
+        var cc = canvas.getContext("2d");
+
+        // 定义六边形的参数
+        var radius = 50; // 六边形半径
+        var hexagonHeight = Math.sqrt(3) * radius; // 六边形的高度
+        var rows = 7; // 每列六边形的行数
+        var canvasWidth = 3 * radius * 2 + 20; // 三列宽度，每列偏移 1.5 × 半径
+        var canvasHeight = hexagonHeight * rows + hexagonHeight; // 顶部和底部需要多加一个六边形高度
+
+        // 设置 canvas 的宽高
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        // 填充背景颜色
+        cc.fillStyle = "#31a6e2";
+        cc.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 画单个六边形的方法
+        function drawHexagon(centerX, centerY) {
+            cc.beginPath();
+            for (var i = 0; i < 6; i++) {
+                var x = Math.cos((i * 60) / 180 * Math.PI) * radius + centerX;
+                var y = Math.sin((i * 60) / 180 * Math.PI) * radius + centerY;
+                cc.lineTo(x, y);
+            }
+            cc.closePath();
+            cc.lineWidth = 2;
+            cc.fillStyle = "#fc3598";
+            cc.fill();
+        }
+
+        // 绘制第一列
+        var col1X = radius; // 第一列中心 X 坐标
+        for (var i = 0; i < rows; i++) {
+            var centerY = i * hexagonHeight + radius; // 每个六边形的中心 Y 坐标
+            drawHexagon(col1X, centerY);
+        }
+
+        // 绘制第二列
+        var col2X = col1X + 1.5 * radius; // 第二列中心 X 坐标（右移 1.5 × 半径）
+        for (var i = 0; i < rows; i++) {
+            var centerY = i * hexagonHeight + radius + (hexagonHeight / 2); // 每个六边形的中心 Y 坐标偏移半个高度
+            drawHexagon(col2X, centerY);
+        }
+
+        // 绘制第三列
+        var col3X = col2X + 1.5 * radius; // 第三列中心 X 坐标（右移 1.5 × 半径）
+        for (var i = 0; i < rows; i++) {
+            var centerY = i * hexagonHeight + radius + hexagonHeight; // 每个六边形的中心 Y 坐标偏移一个高度
+            drawHexagon(col3X, centerY);
+        }
+    </script>
+</body>
+</html>

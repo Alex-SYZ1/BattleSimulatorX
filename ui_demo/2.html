@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>六边形棋盘</title>
+  <link rel="stylesheet" href="2.css">
+</head>
+<body>
+  <div class="hex-board">
+    <!-- 示例：14列，每列7个单元格 -->
+    <!-- 偶数行 -->
+    <div class="hex-row">
+      <div class="hex-cell red">A1</div>
+      <div class="hex-cell blue">A2</div>
+      <div class="hex-cell tree">A3</div>
+      <div class="hex-cell mountain">A4</div>
+      <div class="hex-cell water">A5</div>
+      <div class="hex-cell city">A6</div>
+    </div>
+    <!-- 奇数行，向右偏移 -->
+    <div class="hex-row offset">
+      <div class="hex-cell tree">B1</div>
+      <div class="hex-cell red">B2</div>
+      <div class="hex-cell blue">B3</div>
+      <div class="hex-cell water">B4</div>
+      <div class="hex-cell mountain">B5</div>
+    </div>
+    <!-- 按列继续重复 -->
+  </div>
+</body>
+</html>

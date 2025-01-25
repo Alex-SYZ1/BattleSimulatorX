@@ -1,0 +1,151 @@
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  h3 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  div {
+    box-sizing: border-box;
+  }
+  
+  .logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #34495e;
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+  
+  .current-turn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #95a5a6;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 18px;
+  }
+  
+  /* 主容器样式 */
+  .main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  /* 左侧玩家区域 */
+  .player-area, .enemy-area {
+    flex: 1;
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .player img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #2c3e50;
+  }
+  
+  /* 棋盘区域 */
+  .board {
+    flex: 2;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+  
+  .tile {
+    background-color: #bdc3c7;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #7f8c8d;
+  }
+  
+  /* 战备情况 */
+  .status-area {
+    background-color: #ecf0f1;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 聊天区与备忘录 */
+  .chat-area, .memo-area {
+    width: 300px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .messages {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    border: 1px solid #bdc3c7;
+    padding: 10px;
+    background-color: #ecf0f1;
+  }
+  
+  .message {
+    margin-bottom: 5px;
+  }
+  
+  .memo {
+    background-color: #fdfde0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #d35400;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    outline: none;
+  }
+  

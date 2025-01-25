@@ -5,7 +5,6 @@ class Board():
         self.size = size
         self.board = [[0 for _ in range(size)] for _ in range(size)]
         
-
 class Cell:
     """主要记录该单元格自身属性与相关对象情况及其变迁，不涉及作战"""
     # __slots__ = ('coordinate', 'adjacent_cells', 'bordering_cells', 'boundaries_type', 'cell_type')

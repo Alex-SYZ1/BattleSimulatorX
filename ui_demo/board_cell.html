@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Hexagon</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var canvas = document.getElementById("canvas");
+        canvas.width = 400;
+        canvas.height = 400;
+        var cc = canvas.getContext("2d");
+
+        // 填充一个背景
+        cc.fillStyle = "#31a6e2";
+        cc.rect(0, 0, 400, 400);
+        cc.fill();
+
+        cc.beginPath();
+        for (var i = 0; i < 6; i++) {
+            var x = Math.cos((i * 60) / 180 * Math.PI) * 150 + 200;
+            var y = -Math.sin((i * 60) / 180 * Math.PI) * 150 + 200;	
+            cc.lineTo(x, y);
+        }
+        cc.closePath();
+        
+        cc.lineWidth = 2;
+        cc.fillStyle = "#fc3598";
+        cc.fill();
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+/* 通用样式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  /* 六边形棋盘容器 */
+  .hex-board {
+    display: flex;
+    flex-direction: row;
+    gap: 5px; /* 列间距 */
+  }
+  
+  /* 六边形列 */
+  .hex-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 行间距 */
+    position: relative;
+  }
+  
+  /* 偶数列下移 */
+  .hex-column.offset {
+    margin-top: 35px;
+  }
+  
+  /* 六边形单元格 */
+  .hex-cell {
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    clip-path: polygon(
+      50% 0%,
+      100% 25%,
+      100% 75%,
+      50% 100%,
+      0% 75%,
+      0% 25%
+    ); /* 创建六边形 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  
+  /* 不同类型单元格样式 */
+  .hex-cell.red {
+    background-color: #ff6666;
+    color: #fff;
+  }
+  
+  .hex-cell.blue {
+    background-color: #6699ff;
+    color: #fff;
+  }
+  
+  .hex-cell.tree {
+    background-color: #99cc99;
+    background-image: url('https://img.icons8.com/color/48/000000/tree.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .hex-cell.mountain {
+    background-color: #d9a066;
+    background-image: url('https://img.icons8.com/ios-filled/50/000000/mountain.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .hex-cell.water {
+    background-color: #66ccff;
+    background-image: url('https://img.icons8.com/ios-filled/50/000000/water.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .hex-cell.city {
+    background-color: #ffcc66;
+    background-image: url('https://img.icons8.com/ios/50/000000/city.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  

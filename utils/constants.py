@@ -11,6 +11,10 @@ if "Constants":
         BOARD_CONSTANTS = get_board_default_dict(ConstDefaultProfiles)
         ROW_NUM = BOARD_CONSTANTS["row_num"]
         COL_NUM = BOARD_CONSTANTS["col_num"]
+        INITIAL_VISION = get_initial_vision_list(ConstDefaultProfiles)
+        RED_INIT_VISION = INITIAL_VISION["red_initial_vision"]
+        BLUE_INIT_VISION = INITIAL_VISION["blue_initial_vision"]
+        
         if BOARD_CONSTANTS["odd_col_minus_even"] == 1:
             ODD_δx6  = [(0,1),(1,1),(1,0),(0,-1),(-1,0),(-1,1)]
             EVEN_δx6 = [(0,1),(1,0),(1,-1),(0,-1),(-1,-1),(-1,0)]
