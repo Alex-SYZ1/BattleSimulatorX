@@ -1,5 +1,5 @@
 # Board.py
-from utils.constants import *
+
 
 class Board:
     """由棋子、格子构成的棋盘，是对象的嵌套体
@@ -12,5 +12,4 @@ class Board:
     - getMovePower(x, y): 获取指定坐标的移动力。
     """
     def __init__(self):
-        # 引入常量，遍历生成单元格
-        pass
+        

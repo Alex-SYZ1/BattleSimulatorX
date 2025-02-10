@@ -12,5 +12,4 @@ class Board:
     - getMovePower(x, y): 获取指定坐标的移动力。
     """
     def __init__(self):
-        # 引入常量，遍历生成单元格
-        pass
+        1
