@@ -5,15 +5,18 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.config_utils import *
 
 ConstDefaultProfiles = read_init_file()
+print(ConstDefaultProfiles)
 
 if "Constants":
     class BoardCst:
         BOARD_CONSTANTS = get_board_default_dict(ConstDefaultProfiles)
+        print(BOARD_CONSTANTS)
         ROW_NUM = BOARD_CONSTANTS["row_num"]
         COL_NUM = BOARD_CONSTANTS["col_num"]
         INITIAL_VISION = get_initial_vision_list(ConstDefaultProfiles)
         RED_INIT_VISION = INITIAL_VISION["red_initial_vision"]
         BLUE_INIT_VISION = INITIAL_VISION["blue_initial_vision"]
+        RIVER_BOARD = BOARD_CONSTANTS["border_river"]
         
         if BOARD_CONSTANTS["odd_col_minus_even"] == 1:
             ODD_δx6  = [(0,1),(1,1),(1,0),(0,-1),(-1,0),(-1,1)]
@@ -23,8 +26,9 @@ if "Constants":
             EVEN_δx12 = [...]
         
     class CellCst:
-        
-        boundaries_type = {b_index:b_type for b_index,b_type in enumerate([0]*6,1)}
+        initial_boundaries_type = lambda: {b_index: b_type for b_index, b_type in enumerate([0] * 6, 1)}
+
+        # boundaries_type = {b_index:b_type for b_index,b_type in enumerate([0]*6,1)}
         cell_type = 0
         occupier = 0
         
@@ -50,6 +54,44 @@ if "Constants":
                 1: "红方占领",
                 2: "蓝方占领"
             }
+
+if "OtherUtils":
+    class DictAttr(dict):
+        """一个可以通过属性访问键值的字典类"""
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.__dict__ = self  # 让 __dict__ 直接引用自身
+
+        def __getattr__(self, item):
+            try:
+                return self[item]
+            except KeyError:
+                raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{item}'")
+
+        def __setattr__(self, key, value):
+            self[key] = value
+
+        def __delattr__(self, key):
+            try:
+                del self[key]
+            except KeyError:
+                raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{key}'")
+
+        # # 测试
+        # data = DictAttr(a=1, b=2, c=3)
+        # print(data.a)  # 1
+        # print(data['b'])  # 2
+
+        # data.d = 4
+        # print(data.d)  # 4
+        # print(data['d'])  # 4
+
+        # del data.c
+        # print(data)  # {'a': 1, 'b': 2, 'd': 4}
+
+        # # 访问不存在的属性会报错
+        # # print(data.x)  # AttributeError: 'DictAttr' object has no attribute 'x'
 
 if "CoordinateUtil":
 # class CoordinateUtil:

@@ -1,5 +1,6 @@
 # Board.py
-from utils.constants import *
+import utils.constants as Constants
+from cell import Cell
 
 class Board:
     """由棋子、格子构成的棋盘，是对象的嵌套体
@@ -13,4 +14,15 @@ class Board:
     """
     def __init__(self):
         # 引入常量，遍历生成单元格
+        self.BoardCst = Constants.BoardCst()
+        self.max_row = self.BoardCst.ROW_NUM
+        self.max_col = self.BoardCst.COL_NUM
+        self.initial_settings = DictAttr(red_vision = self.BoardCst.RED_INIT_VISION,
+                                         blue_vision = self.BoardCst.BLUE_INIT_VISION,
+                                         river_board = self.BoardCst.RIVER_BOARD)
+    def initializeBoard(self):
         pass
+    def setCell(self, x, y, ):
+        """设置指定坐标的格子信息"""
+        initial_boundaries_type = Constants.CellCst.boundaries_type()
+        current_Cell = Cell(coordinate=(x,y),)

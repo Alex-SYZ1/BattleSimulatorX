@@ -10,7 +10,7 @@ class Cell:
     # __slots__ = ('coordinate', 'adjacent_cells', 'bordering_cells', 'boundaries_type', 'cell_type')
     def __init__(self, 
                  coordinate:tuple[int,int], 
-                 boundaries_type:dict[int:int] = Constants.CellCst.boundaries_type, 
+                 boundaries_type:dict[int:int] = Constants.CellCst.initial_boundaries_type(), 
                  cell_type:int = Constants.CellCst.cell_type, 
                  current_army:Union[None] = None,# Union[Amry]
                  occupier:int = Constants.CellCst.occupier):
