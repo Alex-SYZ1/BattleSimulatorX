@@ -13,7 +13,7 @@ if "Constants":
         print(BOARD_CONSTANTS)
         ROW_NUM = BOARD_CONSTANTS["row_num"]
         COL_NUM = BOARD_CONSTANTS["col_num"]
-        INITIAL_VISION = get_initial_vision_list(ConstDefaultProfiles)
+        INITIAL_VISION = get_initial_vision_list(BOARD_CONSTANTS)
         RED_INIT_VISION = INITIAL_VISION["red_initial_vision"]
         BLUE_INIT_VISION = INITIAL_VISION["blue_initial_vision"]
         RIVER_BOARD = BOARD_CONSTANTS["border_river"]

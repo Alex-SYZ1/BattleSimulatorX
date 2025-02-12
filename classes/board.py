@@ -17,11 +17,11 @@ class Board:
         self.BoardCst = Constants.BoardCst()
         self.max_row = self.BoardCst.ROW_NUM
         self.max_col = self.BoardCst.COL_NUM
-        self.initial_settings = DictAttr(red_vision = self.BoardCst.RED_INIT_VISION,
+        self.initial_settings = Constants.DictAttr(red_vision = self.BoardCst.RED_INIT_VISION,
                                          blue_vision = self.BoardCst.BLUE_INIT_VISION,
                                          river_board = self.BoardCst.RIVER_BOARD)
     def initializeBoard(self):
-        pass
+        grid = Constants.DictAttr()
     def setCell(self, x, y, ):
         """设置指定坐标的格子信息"""
         initial_boundaries_type = Constants.CellCst.boundaries_type()
