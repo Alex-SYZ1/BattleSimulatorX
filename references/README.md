@@ -356,6 +356,12 @@ tail -f process1.log
 
 **ossutil64  ls oss://zyb-speech-asrtrain/epub/epub.tar**
 
+
+简言之：
+
+- 63传：nohup ossutil64 cp -r --maxupspeed=76800  output.tar.gz oss://zyb-speech-asrtrain-out/epub/bookrix > oss_cp_output.log 2>&1 &
+- 186收
+
 # 进阶快捷键
 
 * ## 关键词获取进程情况
@@ -576,10 +582,9 @@ start_index, links_per_group, num_groups, entire_json,proxies_flag
 
 ```
 
-
 # github相关命令
 
-```sh 
+```sh
 # pull 最新修改
 git pull origin main
 
