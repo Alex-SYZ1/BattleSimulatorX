@@ -43,10 +43,33 @@
 
         /* 当前布置方 */
         #current-side {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
+        }
+
+        /* 红方样式 */
+        .red-side {
+            color: #ff4d4d;
+        }
+
+        /* 蓝方样式 */
+        .blue-side {
+            color: #4d94ff;
+        }
+
+        /* 财政余款框 */
+        #budget {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        #budget span {
+            margin: 0 10px;
         }
 
         /* 兵种选择器 */
@@ -93,11 +116,34 @@
             margin: 0 10px;
         }
 
-        /* 切换布置方按钮 */
-        #switch-side-button {
+        /* 按钮容器 */
+        .button-container {
             position: absolute;
             bottom: 20px;
-            right: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20%;
+        }
+
+        /* 返回按钮 */
+        #back-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #e74c3c; /* 红色按钮 */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #back-button:hover {
+            background-color: #c0392b; /* 深红色 */
+        }
+
+        /* 确定按钮 */
+        #confirm-button {
             padding: 15px 30px;
             font-size: 1.2rem;
             color: white;
@@ -108,7 +154,7 @@
             transition: background-color 0.3s ease;
         }
 
-        #switch-side-button:hover {
+        #confirm-button:hover {
             background-color: #2980b9; /* 深蓝色 */
         }
     </style>
@@ -120,65 +166,114 @@
     <!-- 主界面 -->
     <div class="container">
         <!-- 当前布置方 -->
-        <div id="current-side">红方布置</div>
+        <div id="current-side" class="red-side">红方布置</div>
+
+        <!-- 财政余款框 -->
+        <div id="budget">
+            <span>当前余款: <span id="current-budget">100</span></span>
+            <span>布置兵种金额: <span id="unit-cost">0</span></span>
+            <span>布置后余款: <span id="remaining-budget">100</span></span>
+        </div>
 
         <!-- 兵种选择器 -->
         <div class="unit-selector">
             <span>步兵</span>
-            <img src="path/to/infantry-logo.png" alt="步兵"> <!-- 替换为步兵 Logo 路径 -->
+            <img src="img/infantry.png" alt="步兵"> <!-- 替换为步兵 Logo 路径 -->
             <button class="decrease">-</button>
             <span class="count">0</span>
             <button class="increase">+</button>
         </div>
         <div class="unit-selector">
             <span>装甲部队</span>
-            <img src="path/to/armor-logo.png" alt="装甲部队"> <!-- 替换为装甲部队 Logo 路径 -->
+            <img src="img/armor.png" alt="装甲部队"> <!-- 替换为装甲部队 Logo 路径 -->
             <button class="decrease">-</button>
             <span class="count">0</span>
             <button class="increase">+</button>
         </div>
         <div class="unit-selector">
             <span>炮兵</span>
-            <img src="path/to/artillery-logo.png" alt="炮兵"> <!-- 替换为炮兵 Logo 路径 -->
+            <img src="img/artillery.png" alt="炮兵"> <!-- 替换为炮兵 Logo 路径 -->
             <button class="decrease">-</button>
             <span class="count">0</span>
             <button class="increase">+</button>
         </div>
         <div class="unit-selector">
             <span>侦查机</span>
-            <img src="path/to/scout-logo.png" alt="侦查机"> <!-- 替换为侦查机 Logo 路径 -->
+            <img src="img/recon.png" alt="侦查机"> <!-- 替换为侦查机 Logo 路径 -->
             <button class="decrease">-</button>
             <span class="count">0</span>
             <button class="increase">+</button>
         </div>
         <div class="unit-selector">
             <span>导弹部队</span>
-            <img src="path/to/missile-logo.png" alt="导弹部队"> <!-- 替换为导弹部队 Logo 路径 -->
+            <img src="img/missile.png" alt="导弹部队"> <!-- 替换为导弹部队 Logo 路径 -->
             <button class="decrease">-</button>
             <span class="count">0</span>
             <button class="increase">+</button>
         </div>
 
-        <!-- 切换布置方按钮 -->
-        <button id="switch-side-button">切换布置方</button>
+        <!-- 按钮容器 -->
+        <div class="button-container">
+            <button id="back-button">返回</button>
+            <button id="confirm-button">确定</button>
+        </div>
     </div>
 
     <script>
         // 当前布置方
         let currentSide = '红方';
         const currentSideElement = document.getElementById('current-side');
-        const switchSideButton = document.getElementById('switch-side-button');
+        const backButton = document.getElementById('back-button');
+        const confirmButton = document.getElementById('confirm-button');
+
+        // 财政余款
+        let currentBudget = 100;
+        const currentBudgetElement = document.getElementById('current-budget');
+        const unitCostElement = document.getElementById('unit-cost');
+        const remainingBudgetElement = document.getElementById('remaining-budget');
+
+        // 兵种价格
+        const unitPrices = {
+            '步兵': 1,
+            '装甲部队': 6,
+            '炮兵': 3,
+            '侦查机': 8,
+            '导弹部队': 20
+        };
+
+        // 更新财政余款
+        function updateBudget() {
+            let totalCost = 0;
+            document.querySelectorAll('.unit-selector').forEach(selector => {
+                const unitName = selector.querySelector('span').textContent;
+                const count = parseInt(selector.querySelector('.count').textContent);
+                totalCost += unitPrices[unitName] * count;
+            });
+            unitCostElement.textContent = totalCost;
+            remainingBudgetElement.textContent = currentBudget - totalCost;
+        }
 
         // 切换布置方
-        switchSideButton.addEventListener('click', function() {
+        function switchSide() {
             currentSide = currentSide === '红方' ? '蓝方' : '红方';
             currentSideElement.textContent = `${currentSide}布置`;
+            currentSideElement.className = currentSide === '红方' ? 'red-side' : 'blue-side';
+        }
+
+        // 返回按钮逻辑
+        backButton.addEventListener('click', function() {
+            if (currentSide === '蓝方') {
+                switchSide();
+            }
         });
 
-        // 右键点击跳转
-        switchSideButton.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-            window.location.href = 'board.html'; // 替换为实际跳转页面
+        // 确定按钮逻辑
+        confirmButton.addEventListener('click', function() {
+            if (currentSide === '红方') {
+                switchSide();
+            } else {
+                window.location.href = 'board.html'; // 替换为实际跳转页面
+            }
         });
 
         // 增减兵种数量
@@ -193,6 +288,7 @@
                 if (count > 0) {
                     count--;
                     countElement.textContent = count;
+                    updateBudget();
                 }
             });
 
@@ -200,8 +296,12 @@
                 let count = parseInt(countElement.textContent);
                 count++;
                 countElement.textContent = count;
+                updateBudget();
             });
         });
+
+        // 初始化财政余款
+        updateBudget();
     </script>
 </body>
 </html>

@@ -134,11 +134,11 @@ body {
     }
     
     .player-area {
-        background-color: #003366;
+        background-color: #660000;
     }
     
     .enemy-area {
-        background-color: #660000;
+        background-color: #003366;
     }
     
     h3 {
@@ -170,13 +170,12 @@ body {
         height: 20px; /* 原来的40px */
     }
     
-    .player-area .player,
-    .enemy-area .player {
-        background-color: #004080; /* 我方的颜色 */
+    .player-area .player {
+        background-color: #800000; /* 我方的颜色 .enemy-area .player*/
     }
     
     .enemy-area .player {
-        background-color: #800000; /* 敌方的颜色 */
+        background-color: #004080; /* 敌方的颜色 */
     }
     
     .player span {
